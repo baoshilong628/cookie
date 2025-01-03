@@ -3,7 +3,7 @@ import axios from 'axios';
 import Component from "./components/Component";
 
 /**
- * @returns {JSX.Element}
+ * @returns {Element}
  * @constructor
  */
 const App = () => {
@@ -22,7 +22,7 @@ const App = () => {
   return (
     <div>
       {fileDocs.map((fileDoc, index) => (
-          <Component docs={fileDoc.docs}/>
+          <Component key={index} docs={fileDoc.docs}/>
       ))}
     </div>
   );

@@ -9,7 +9,7 @@
  * @param {array} list - 列表
  * @param {object} obj - 对象
  * @param {function} onClick - 点击事件
- * @returns {JSX.Element} - 组件
+ * @returns {Element} - 组件
  */
 const DemoComponent = ({ title, count, visible, list, obj, onClick }) => {
   return (
