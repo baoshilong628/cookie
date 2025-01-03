@@ -1,0 +1,38 @@
+.app_header {
+    background: white;
+    display: flex;
+    align-content: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.app_header_title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+.app_header_subtitle {
+    margin-left: 16px;
+}
+.app_content {
+    margin: 24px;
+    padding: 24px;
+    background: white;
+    border-radius: 4px;
+}
+
+.app_content_container {
+    overflow: auto;
+    height: 100%;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+}
+
+.app_icon {
+    background-image: url('../public/icon.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 60px;
+    display: block;
+    width: 60px;
+}
