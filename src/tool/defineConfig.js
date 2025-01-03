@@ -3,7 +3,8 @@ const defaultConfig = require("./defaultConfig");
 
 /**
  * @param {{
- *     rootDir
+ *     rootDir: string,
+ *     getComponentGroup: (infoList: { filePath: string, name: string }[]) => Object,
  * }} config
  */
 const defineConfig = config => {

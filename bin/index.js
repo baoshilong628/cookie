@@ -6,6 +6,8 @@ const getConfig = require("../src/tool/getConfig");
 
 const config = getConfig();
 
+global.config = config;
+
 const root = path.join(process.cwd(), config.rootDir);
 // 启动文档服务
 const refresh = openFileDocsServer(

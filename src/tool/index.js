@@ -177,27 +177,50 @@ const getDocsFromFolder = (folderPath) => {
   }));
 };
 
+const getComponentId = doc => {
+  return `${doc.name}-${encodeURI(doc.filePath)}`;
+}
 
-// console.log(getDocsFromFolder(path.join(__dirname, '../../example')));
+const getComponentInfoListFromFileDocs = (fileDocs) => {
+  const componentInfoList = [];
+  fileDocs.forEach(fileDoc => {
+    fileDoc.docs.forEach(doc => {
+      componentInfoList.push({
+        filePath: fileDoc.filePath,
+        name: doc.name,
+        displayName: doc.displayName,
+        comment: doc.comment,
+        params: doc.params,
+        id: getComponentId(doc),
+      });
+    });
+  });
+  return componentInfoList;
+};
 
 // 入参是文件夹路径，副作用是开启一个FileDocs服务器
 const openFileDocsServer = (folderPath) => {
-  let fileDocs = {
-    current: getDocsFromFolder(folderPath),
+  let data = {
   };
+  const initData = () => {
+    data.fileDocs = getDocsFromFolder(folderPath);
+    data.componentGroups = config.getComponentGroup(getComponentInfoListFromFileDocs(data.fileDocs));
+  };
+  initData();
   const express = require('express');
   const app = express();
   // 使用 cors 中间件
   app.use(cors());
   app.get('/fileDocs', (req, res) => {
-    res.send(fileDocs.current);
+    res.send(data.fileDocs);
+  });
+  app.get('/componentGroups', (req, res) => {
+    res.send(data.componentGroups);
   });
   app.listen(3000, () => {
     console.log('Server started on port 3000');
   });
-  return () => {
-    fileDocs.current = getDocsFromFolder(folderPath);
-  }
+  return initData;
 };
 
 // 监听文件夹，当文件夹下任意文件发生变化时，调用回调函数

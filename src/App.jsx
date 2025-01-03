@@ -3,16 +3,13 @@ import axios from 'axios';
 import Component from "./components/Component";
 import {Layout, Menu} from "antd";
 import './app.css'
-import {getMenu} from "./utils";
+import {scrollToAnchor} from "./utils";
+import {c} from "react/compiler-runtime";
 const { Header, Content, Sider } = Layout;
 
-/**
- * @returns {Element}
- * @constructor
- */
-const App = () => {
-    const [fileDocs, setFileDocs] = useState([]);
 
+const useFileDocs = () => {
+    const [fileDocs, setFileDocs] = useState([]);
     useEffect(() => {
         axios.get('http://localhost:3000/fileDocs')
             .then(response => {
@@ -22,7 +19,51 @@ const App = () => {
                 console.error('Error fetching data:', error);
             });
     }, []);
+    return fileDocs;
+}
+const useComponentGroups = () => {
+    const [componentGroups, setComponentGroups] = useState([]);
+    useEffect(() => {
+        axios.get('http://localhost:3000/componentGroups')
+            .then(response => {
+                setComponentGroups(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+    } , []);
+    return componentGroups;
+}
 
+const getMenuItemsByComponentGroups = componentGroups => {
+    const menuItems = [];
+    for (name of Object.keys(componentGroups)) {
+        menuItems.push({
+            label: name,
+            key: name,
+            type: 'group',
+            children: componentGroups[name].map(component => {
+                return {
+                    label: component.displayName ?? component.name,
+                    key: component.id,
+                    onClick: () => {
+                        scrollToAnchor(component.id);
+                    }
+                }
+            })
+        });
+    }
+    return menuItems;
+}
+
+/**
+ * @returns {Element}
+ * @constructor
+ */
+const App = () => {
+    const fileDocs = useFileDocs();
+    const componentGroups = useComponentGroups();
+    console.log(getMenuItemsByComponentGroups(componentGroups));
     return (
         <Layout>
             <Header className={'app_header'}>
@@ -33,8 +74,8 @@ const App = () => {
                 </span>
             </Header>
             <Layout style={{ height: 'calc(100vh - 64px)'}}>
-                <Sider className={'app_side'} theme={'light'}>
-                    <Menu items={getMenu(fileDocs)}
+                <Sider width={330} className={'app_side'} theme={'light'}>
+                    <Menu mode={'inline'} items={getMenuItemsByComponentGroups(componentGroups)}
                     />
                 </Sider>
                 <Layout>
