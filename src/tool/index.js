@@ -173,7 +173,7 @@ const getDocsFromFolder = (folderPath) => {
 };
 
 
-// console.log(getDocsFromFolder(path.join(__dirname, '../../assets')));
+// console.log(getDocsFromFolder(path.join(__dirname, '../../example')));
 
 // 入参是文件夹路径，副作用是开启一个FileDocs服务器
 const openFileDocsServer = (folderPath) => {
