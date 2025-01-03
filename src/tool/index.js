@@ -16,6 +16,7 @@ class Doc {
   leadingComments;
   params;
   comment; // 解析后的评论注释，评论注释写在注释的最上面
+  displayName; // 组件的展示名称
 }
 
 // 这个结构保存着一个文件的所有Doc
@@ -65,20 +66,24 @@ const getLeadingComments = (filePath) => {
 // 第二步，入参是Doc数组，出参是处理后的Doc数组，这个函数会将leadingComments中的@param注释解析出来，将其转换为Param数组，赋值给Doc的params属性
 const parseLeadingComments = (docs) => {
   const paramRegex = /^\s*\*\s*@param\s+(\{?\w+\}?)\s+(\w+)\s+(.+)/;
-
+  const displayNameRegex = /^\s*\*\s*@displayName\s+(.+)/;
   docs.forEach(doc => {
     if (doc.leadingComments) {
       doc.params = [];
       doc.leadingComments.forEach(comment => {
         const lines = comment.split(/\r?\n/);
         lines.forEach(line => {
-          const match = line.match(paramRegex);
-          if (match) {
+          const paramMatch = line.match(paramRegex);
+          if (paramMatch) {
             const param = new Param();
-            param.type = match[1];
-            param.name = match[2];
-            param.comment = match[3];
+            param.type = paramMatch[1];
+            param.name = paramMatch[2];
+            param.comment = paramMatch[3];
             doc.params.push(param);
+          }
+          const displayNameMatch = line.match(displayNameRegex);
+          if (displayNameMatch) {
+            doc.displayName = displayNameMatch[1];
           }
         });
       });

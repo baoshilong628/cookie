@@ -10,6 +10,7 @@
  * @param {object} obj - 对象
  * @param {function} onClick - 点击事件
  * @returns {Element} - 组件
+ * @displayName DemoComponent（来自DisplayName）
  */
 const DemoComponent = ({ title, count, visible, list, obj, onClick }) => {
   return (

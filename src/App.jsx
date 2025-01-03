@@ -29,7 +29,7 @@ const App = () => {
                 <i className={'app_icon'}/>
                 <span className={'app_header_title'}>Cookies</span>
                 <span className={'app_header_subtitle'}>
-                    —— 代码仓协作工具
+                    —— 代码研发工具
                 </span>
             </Header>
             <Layout style={{ height: 'calc(100vh - 64px)'}}>

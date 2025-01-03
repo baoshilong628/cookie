@@ -12,7 +12,7 @@ const Component = props => {
                         <a onClick={e => {
                            e.preventDefault();
                            scrollToAnchor(getComponentId(doc))
-                        }} href={`#${getComponentId(doc)}`}>{doc.name}</a>
+                        }} href={`#${getComponentId(doc)}`}>{doc.displayName ?? doc.name}</a>
                     </Typography.Title>
                     <Typography.Text>{doc.comment}</Typography.Text>
                     <Typography.Title level={3}>API</Typography.Title>
