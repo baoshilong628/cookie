@@ -4,9 +4,7 @@ import Component from "./components/Component";
 import {Layout, Menu} from "antd";
 import './app.css'
 import {scrollToAnchor} from "./utils";
-import {c} from "react/compiler-runtime";
 const { Header, Content, Sider } = Layout;
-
 
 const useFileDocs = () => {
     const [fileDocs, setFileDocs] = useState([]);

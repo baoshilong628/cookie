@@ -4,6 +4,7 @@ const path = require("node:path");
 const cors = require('cors');
 const { createServer } = require('vite');
 const {debounce} = require("lodash");
+const docParse = require('./parser');
 
 // 使用@babel/traverse遍历AST，找到箭头函数的leadingComments
 const traverse = require('@babel/traverse').default;
@@ -29,6 +30,8 @@ class Param {
   name; // 参数名称
   type; // 参数类型
   comment; // 参数注释
+  defaultValue; // 参数默认值
+  isRequired; // 是否为必填参数
 }
 
 const getLeadingComments = (filePath) => {
@@ -65,28 +68,22 @@ const getLeadingComments = (filePath) => {
 
 // 第二步，入参是Doc数组，出参是处理后的Doc数组，这个函数会将leadingComments中的@param注释解析出来，将其转换为Param数组，赋值给Doc的params属性
 const parseLeadingComments = (docs) => {
-  const paramRegex = /^\s*\*\s*@param\s+(\{?\w+\}?)\s+(\w+)\s+(.+)/;
-  const displayNameRegex = /^\s*\*\s*@displayName\s+(.+)/;
   docs.forEach(doc => {
     if (doc.leadingComments) {
-      doc.params = [];
-      doc.leadingComments.forEach(comment => {
-        const lines = comment.split(/\r?\n/);
-        lines.forEach(line => {
-          const paramMatch = line.match(paramRegex);
-          if (paramMatch) {
+      const leadingCommentsString = `/**\r\n*${doc.leadingComments.join('')}*/`;
+      const res = docParse.parse(leadingCommentsString);
+      doc.params = res
+          .filter(({ type }) => type === 'param')
+          .map(({ value }) => value)
+          .map(({ comment, type, variable }) => {
             const param = new Param();
-            param.type = paramMatch[1];
-            param.name = paramMatch[2];
-            param.comment = paramMatch[3];
-            doc.params.push(param);
-          }
-          const displayNameMatch = line.match(displayNameRegex);
-          if (displayNameMatch) {
-            doc.displayName = displayNameMatch[1];
-          }
-        });
-      });
+            param.name = variable.name;
+            param.type = type.type;
+            param.comment = comment;
+            param.defaultValue = variable.value;
+            param.isRequired = type.isRequired;
+            return param;
+          });
     }
   });
   return docs;

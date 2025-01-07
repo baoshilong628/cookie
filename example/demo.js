@@ -9,7 +9,6 @@
  * @param {array} list - 列表
  * @param {object} obj - 对象
  * @param {function} onClick - 点击事件
- * @returns {Element} - 组件
  * @displayName DemoComponent（来自DisplayName）
  */
 const DemoComponent = ({ title, count, visible, list, obj, onClick }) => {
@@ -39,7 +38,6 @@ const DemoComponent = ({ title, count, visible, list, obj, onClick }) => {
  * @param {array} list - 列表
  * @param {object} obj - 对象
  * @param {function} onClick - 点击事件
- * @returns {string} - 字符串
  */
 function DemoFunction(title, count, visible, list, obj, onClick) {
   return `标题：${title}，数量：${count}，可见性：${visible? '可见' : '不可见'}，列表：${list.join(',')}，对象属性：${obj.name}，点击事件：${onClick}`;
