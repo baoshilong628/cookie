@@ -4,7 +4,7 @@
 /**
  * 这是一个React组件Demo
  * @displayName Joker
- * @param {string} title - 标题
+ * @param {string=} title - 标题
  * @param {number} count - 数量
  * @param {boolean} visible - 是否可见
  * @param {array} [list=[123]] - 列表

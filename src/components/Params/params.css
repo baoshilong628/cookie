@@ -1,3 +1,11 @@
 .param_type {
     color: #c41d7f;
 }
+
+.param_required.required {
+    color: #e23e57;
+}
+
+.not_required.not_required {
+
+}

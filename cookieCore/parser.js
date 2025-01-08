@@ -235,7 +235,7 @@ return text();
 return {name, defaultValue}
 };
   var peg$f8 = function(type, isRequired) {
-return { type, isRequired: Boolean(isRequired) }
+return { type, isRequired: !Boolean(isRequired) }
 };
   var peg$f9 = function(name) {
 return { type: "displayName", value: { name }}

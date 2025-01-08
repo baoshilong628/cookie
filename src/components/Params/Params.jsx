@@ -8,6 +8,11 @@ const COLUMNS = [
         dataIndex: 'name'
     },
     {
+        title: '必填',
+        dataIndex: 'isRequired',
+        render: val => <span className={`param_required ${val ? 'required' : 'not_required'}`}>{val ? '是' : '-'}</span>
+    },
+    {
         title: '说明',
         dataIndex: 'comment'
     },
@@ -22,12 +27,19 @@ const COLUMNS = [
     }
 ];
 
+// 必填项排在前面，其他正常排序
+const sortByIsRequired = (a, b) => {
+    if(a.isRequired === b.isRequired) {
+        return 0;
+    }
+    return a.isRequired ? -1 : 1;
+};
 const Params = props => {
     const { params } = props;
     return (
         <Table
             columns={COLUMNS}
-            dataSource={params}
+            dataSource={params.sort(sortByIsRequired)}
             pagination={false}
         />
     )
