@@ -29,7 +29,6 @@ const DemoComponent = ({ title, count, visible, list, obj, onClick }) => {
 };
 
 
-// 另一个Demo是一个用function定义的函数，这个函数含有一个jsDoc注释，用来给组件文档生成器作为测试素材
 /**
  * 这是一个函数Demo
  * 他在另一个文件里

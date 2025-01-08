@@ -67,7 +67,7 @@ commonjsDocCommand = name:jsDocTag multiWhiteSpace value:nonBreakingCharacters {
 jsDocTag = "@"tag:word { return tag }
 
 // 注释行开头
-commandStart = multiWhiteSpace? "*" multiWhiteSpace+
+commandStart = multiWhiteSpace? "*"![/] multiWhiteSpace?
 
 // 注释行结尾
 commandEnd = [\r\n]+

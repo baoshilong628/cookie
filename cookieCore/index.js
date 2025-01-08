@@ -66,11 +66,10 @@ const getLeadingComments = (filePath) => {
   return docs;
 };
 
-// 第二步，入参是Doc数组，出参是处理后的Doc数组，这个函数会将leadingComments中的@param注释解析出来，将其转换为Param数组，赋值给Doc的params属性
 const parseLeadingComments = (docs) => {
   docs.forEach(doc => {
     if (doc.leadingComments) {
-      const leadingCommentsString = `/**\r\n*${doc.leadingComments.join('')}*/`;
+      const leadingCommentsString = `/*${doc.leadingComments.at(-1)}*/`;
       const res = docParse.parse(leadingCommentsString);
       doc.params = res
           .filter(({ type }) => type === 'param')
@@ -84,13 +83,15 @@ const parseLeadingComments = (docs) => {
             param.isRequired = type.isRequired;
             return param;
           });
+      doc.displayName = res.find(({ type }) => type === 'displayName')?.value?.name;
+      doc.comment = res.filter(({ type }) => type === 'descriptionLine')
+          .map(({ value }) => value)
+          .join('\n');
     }
   });
   return docs;
 };
 
-// 支持解析docs里的comment，将其转换为一个字符串，赋值给Doc的comment属性
-// comment是指leadingComments中的注释，不是params中的注释，也不是其他jsDoc的注释
 const parseComment = (docs) => {
   const commentRegex = /^\s*\*\s*(.+)/;
   const jsDocLineReg = /^\s*\*\s*@/;
@@ -161,8 +162,7 @@ const getFilePathsFromFolder = (folderPath, regex) => {
 // 从文件路径获取文档对象
 const getFileDocs = (filePath) => {
   const docs = getLeadingComments(filePath);
-  const docs2 = parseLeadingComments(docs);
-  return parseComment(docs2);
+  return parseLeadingComments(docs);
 };
 
 // 入参是文件夹路径，出参是FileDocs数组，这个函数会遍历文件夹下的所有文件，生成一个FileDocs数组

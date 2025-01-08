@@ -2,7 +2,26 @@
 // 一个React组件Demo，有一些参数作为输入，这个React组件含有一个jsDoc注释，用来给组件文档生成器作为测试素材
 
 /**
- * 这是一个React组件Demo
+ * 这是一个组件说明注释示例
+ *
+ * 上面空一行应该要支持
+ * 支持markdown语法
+ * 1. ABC
+ * 2. abc
+ * + 123
+ * + 45679
+ * > 123
+ * > > 123
+ * * 1123
+ * ## 123
+ * **123**aaaaa
+ * - 123
+ * - 123
+ * ```json
+ * { "name": "Bob"}
+ * ```
+ * ***
+ *
  * @param {string} title - 标题
  * @param {number} count - 数量
  * @param {boolean} visible - 是否可见
@@ -28,10 +47,9 @@ const DemoComponent = ({ title, count, visible, list, obj, onClick }) => {
   );
 };
 
-
-// 另一个Demo是一个用function定义的函数，这个函数含有一个jsDoc注释，用来给组件文档生成器作为测试素材
 /**
  * 这是一个函数Demo, 你好
+ * @displayName 函数leading注释
  * @param {string} title - 标题
  * @param {number} count - 数量
  * @param {boolean} visible - 是否可见
