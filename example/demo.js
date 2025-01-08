@@ -22,27 +22,17 @@
  * ```
  * ***
  *
- * @param {string} title - 标题
- * @param {number} count - 数量
- * @param {boolean} visible - 是否可见
- * @param {array} list - 列表
- * @param {object} obj - 对象
- * @param onClick 这个变量没有类型声明
+ * @componentParam {string} title - 标题
+ * @componentParam {number} count - 数量
+ * @componentParam {boolean} visible - 是否可见
+ * @componentParam {array} list - 列表
+ * @componentParam {object} obj - 对象
+ * @componentParam onClick 这个变量没有类型声明
  * @displayName DemoComponent（来自DisplayName）
  */
-const DemoComponent = ({ title, count, visible, list, obj, onClick }) => {
+const DemoComponent = (props) => {
   return (
     <div>
-      <h1>{title}</h1>
-      <p>数量：{count}</p>
-      <p>可见性：{visible ? '可见' : '不可见'}</p>
-      <ul>
-        {list.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
-      <p>对象属性：{obj.name}</p>
-      <button onClick={onClick}>点击</button>
     </div>
   );
 };

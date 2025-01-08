@@ -6,6 +6,7 @@ return singleCommand
 singleCommand =
 commandStart command:(
 	param /
+    componentParam /
     displayName /
     descriptionLine /
     commonjsDocCommand
@@ -54,6 +55,11 @@ return { type: "displayName", value: { name }}
 
 // 组件参数
 param = "@param" multiWhiteSpace+ type:(type:variableType multiWhiteSpace+ { return type })? variable:variable multiWhiteSpace+ comment:comment?{
+ return { type: "param", value: { comment ,type, variable }}
+}
+
+// 组件参数特殊版
+componentParam = "@componentParam" multiWhiteSpace+ type:(type:variableType multiWhiteSpace+ { return type })? variable:variable multiWhiteSpace+ comment:comment?{
  return { type: "param", value: { comment ,type, variable }}
 }
 
