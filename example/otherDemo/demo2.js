@@ -30,6 +30,69 @@ const DemoComponent = ({ title, count, visible, list, obj, onClick }) => {
 
 
 /**
+ * 这是一个React组件Demo
+ * @displayName 我的值是匿名函数，你要看到我
+ */
+const AWGAWGAWAWGAD = function ({ title, count, visible, list, obj, onClick }) {
+    return (
+        <div>
+            <h1>{title}</h1>
+            <p>数量：{count}</p>
+            <p>可见性：{visible ? '可见' : '不可见'}</p>
+            <ul>
+                {list.map((item, index) => (
+                    <li key={index}>{item}</li>
+                ))}
+            </ul>
+            <p>对象属性：{obj.name}</p>
+            <button onClick={onClick}>点击</button>
+        </div>
+    );
+};
+
+/**
+ * 这是一个React组件Demo
+ * @displayName 我的值是箭头函数，你要看到我
+ */
+const DWAGFWADAWD = ({ title, count, visible, list, obj, onClick }) => {
+    return (
+        <div>
+            <h1>{title}</h1>
+            <p>数量：{count}</p>
+            <p>可见性：{visible ? '可见' : '不可见'}</p>
+            <ul>
+                {list.map((item, index) => (
+                    <li key={index}>{item}</li>
+                ))}
+            </ul>
+            <p>对象属性：{obj.name}</p>
+            <button onClick={onClick}>点击</button>
+        </div>
+    );
+};
+
+/**
+ * 这是一个React组件Demo
+ * @displayName 开头不是大写字母，不能看到我
+ */
+const dWAGFWADAWD = ({ title, count, visible, list, obj, onClick }) => {
+    return (
+        <div>
+            <h1>{title}</h1>
+            <p>数量：{count}</p>
+            <p>可见性：{visible ? '可见' : '不可见'}</p>
+            <ul>
+                {list.map((item, index) => (
+                    <li key={index}>{item}</li>
+                ))}
+            </ul>
+            <p>对象属性：{obj.name}</p>
+            <button onClick={onClick}>点击</button>
+        </div>
+    );
+};
+
+/**
  * 这是一个函数Demo
  * 他在另一个文件里
  * @param {string} title - 标题

@@ -43,6 +43,10 @@ const getLeadingComments = (filePath) => {
   const docs = [];
   traverse(ast, {
     FunctionDeclaration: function (path) {
+      // 检查函数名称开头是否为大写字母
+      if (!/^[A-Z]/.test(path.node.id.name[0])) {
+        return;
+      }
       const doc = new Doc();
       doc.filePath = filePath;
       doc.name = path.node.id.name;
@@ -53,6 +57,15 @@ const getLeadingComments = (filePath) => {
       docs.push(doc);
     },
     VariableDeclaration: function (path) {
+      // 首先检查接收值是不是函数
+      const validTypes = ['ArrowFunctionExpression', 'FunctionExpression'];
+      if (!validTypes.includes(path.node.declarations[0].init?.type)) {
+        return;
+      }
+      // 检查变量名开头是否为大写字母
+      if (!/^[A-Z]/.test(path.node.declarations[0].id.name)) {
+        return;
+      }
       const doc = new Doc();
       doc.filePath = filePath;
       doc.name = path.node.declarations[0].id.name;
