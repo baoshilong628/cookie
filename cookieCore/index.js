@@ -197,6 +197,7 @@ const getComponentInfoListFromFileDocs = (fileDocs) => {
 
 // 入参是文件夹路径，副作用是开启一个FileDocs服务器
 const openFileDocsServer = (folderPath) => {
+  const { host, port } = global.config.cookieServer;
   let data = {
   };
   const initData = () => {
@@ -214,8 +215,8 @@ const openFileDocsServer = (folderPath) => {
   app.get('/componentGroups', (req, res) => {
     res.send(data.componentGroups);
   });
-  app.listen(3000, () => {
-    console.log('Server started on port 3000');
+  app.listen(port, host, () => {
+    console.log(`Server started on port ${global.config.cookieServer.port}`);
   });
   return initData;
 };
@@ -233,15 +234,25 @@ const watchFolder = (folderPath, callback) => {
 
 // 调用vite开启调试服务器，
 const openViteServer = async () => {
+  const { host, port } = global.config.cookiePageServer;
+  const { host: apiHost, port: apiPort } = global.config.cookieServer;
   const server = await createServer({
     server: {
-      port: 3001
+      host,
+      port,
+      proxy: {
+        '/api': {
+          target: `http://${apiHost}:${apiPort}`,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, '')
+        }
+      }
     },
     root: path.join(__dirname, '../'),
   });
 
   server.listen().then(() => {
-    console.log('Vite server started on port 3001');
+    console.log(`Vite server started on port ${global.config.cookiePageServer.port}`);
   }).catch(e => console.log(e));
 
   return {

@@ -9,7 +9,7 @@ const { Header, Content, Sider } = Layout;
 const useFileDocs = () => {
     const [fileDocs, setFileDocs] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:3000/fileDocs')
+        axios.get('/api/fileDocs')
             .then(response => {
                 setFileDocs(response.data);
             })
@@ -22,7 +22,7 @@ const useFileDocs = () => {
 const useComponentGroups = () => {
     const [componentGroups, setComponentGroups] = useState([]);
     useEffect(() => {
-        axios.get('http://localhost:3000/componentGroups')
+        axios.get('/api/componentGroups')
             .then(response => {
                 setComponentGroups(response.data);
             })

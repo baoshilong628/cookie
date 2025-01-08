@@ -26,5 +26,5 @@ openViteServer()
     });
 
 // 自动打开cookie page
-exec('start http://localhost:3001');
+exec(`start http://localhost:${config.cookiePageServer.port}`);
 

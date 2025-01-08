@@ -16,5 +16,13 @@ module.exports = defineConfig({
             }
         }
         return group;
+    },
+    cookieServer: {
+        host: 'localhost',
+        port: 1234
+    },
+    cookiePageServer: {
+        host: 'localhost',
+        port: 1235
     }
 });
