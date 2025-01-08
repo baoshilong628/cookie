@@ -237,7 +237,7 @@ const openViteServer = async () => {
     server: {
       port: 3001
     },
-    root: path.join(__dirname, '../../'),
+    root: path.join(__dirname, '../'),
   });
 
   server.listen().then(() => {

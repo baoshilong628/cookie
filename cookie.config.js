@@ -15,7 +15,6 @@ module.exports = defineConfig({
                 group['一般组件'].push(info)
             }
         }
-        console.log(group);
         return group;
     }
 });

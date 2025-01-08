@@ -1,14 +1,15 @@
 #!/usr/bin/env node
 const path = require('path');
-const {openFileDocsServer, openViteServer, watchFolder} = require("../src/tool");
+const {openFileDocsServer, openViteServer, watchFolder} = require("../cookieCore");
 const { exec } = require('child_process');
-const getConfig = require("../src/tool/getConfig");
+const getConfig = require("../cookieCore/getConfig");
 
 const config = getConfig();
 
 global.config = config;
 
 const root = path.join(process.cwd(), config.rootDir);
+
 // 启动文档服务
 const refresh = openFileDocsServer(
     root
@@ -24,17 +25,6 @@ openViteServer()
       });
     });
 
-// 自动打开localhost:3001
-
-exec('start http://localhost:3001', (error, stdout, stderr) => {
-  if (error) {
-    console.error(`执行命令时发生错误: ${error}`);
-    return;
-  }
-  if (stderr) {
-    console.error(`命令的标准错误输出: ${stderr}`);
-    return;
-  }
-  console.log(`命令的标准输出: ${stdout}`);
-});
+// 自动打开cookie page
+exec('start http://localhost:3001');
 

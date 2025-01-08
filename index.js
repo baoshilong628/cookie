@@ -1,4 +1,4 @@
-const defineConfig = require("./src/tool/defineConfig");
+const defineConfig = require("./cookieCore/defineConfig");
 
 module.exports = {
     defineConfig,

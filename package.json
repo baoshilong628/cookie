@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "bin": {
-    "inspector": "bin/index.js"
+    "cookie": "bin/index.js"
   },
   "scripts": {
-    "start": "node src/tool/index.js",
+    "start": "node cookieCore/index.js",
     "vite": "vite"
   },
   "author": "",
