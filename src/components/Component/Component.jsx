@@ -3,12 +3,14 @@ import Params from "../Params";
 import {Typography} from "antd";
 import {getComponentId, scrollToAnchor} from "../../utils";
 import {marked} from "marked";
+import './component.css';
+
 const Component = props => {
     const { docs } = props;
     return (
         <div>
             {docs.map((doc, index) => (
-                <div id={getComponentId(doc)} key={index}>
+                <div className='component_container' id={getComponentId(doc)} key={index}>
                     <Typography.Title level={2}>
                         <a onClick={e => {
                            e.preventDefault();
