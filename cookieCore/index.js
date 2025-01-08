@@ -77,10 +77,10 @@ const parseLeadingComments = (docs) => {
           .map(({ comment, type, variable }) => {
             const param = new Param();
             param.name = variable.name;
-            param.type = type.type;
+            param.type = type?.type ?? 'any';
             param.comment = comment;
             param.defaultValue = variable.value;
-            param.isRequired = type.isRequired;
+            param.isRequired = type?.isRequired;
             return param;
           });
       doc.displayName = res.find(({ type }) => type === 'displayName')?.value?.name;

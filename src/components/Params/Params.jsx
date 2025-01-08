@@ -5,25 +5,30 @@ import './params.css';
 const COLUMNS = [
     {
         title: '参数',
-        dataIndex: 'name'
+        dataIndex: 'name',
+        width: '20%',
     },
     {
         title: '必填',
         dataIndex: 'isRequired',
-        render: val => <span className={`param_required ${val ? 'required' : 'not_required'}`}>{val ? '是' : '-'}</span>
+        render: val => <span className={`param_required ${val ? 'required' : 'not_required'}`}>{val ? '是' : '-'}</span>,
+        width: '20%',
     },
     {
         title: '说明',
-        dataIndex: 'comment'
+        dataIndex: 'comment',
+        width: '20%',
     },
     {
         title: '类型',
         dataIndex: 'type',
-        render: val => <span className='param_type'>{val}</span>
+        render: val => <span className='param_type'>{val}</span>,
+        width: '20%',
     },
     {
         title: '默认值',
         dataIndex: 'defaultValue',
+        width: '20%',
     }
 ];
 

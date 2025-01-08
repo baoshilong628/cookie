@@ -42,7 +42,7 @@ return {name, defaultValue}
 // 变量类型
 variableType
 = "{"multiWhiteSpace?type:word multiWhiteSpace? isRequired:"="?multiWhiteSpace?"}" {
-return { type, isRequired: Boolean(isRequired) }
+return { type, isRequired: !Boolean(isRequired) }
 }
 
 // 以下为特殊Tag组成的指令
@@ -53,7 +53,7 @@ return { type: "displayName", value: { name }}
 }
 
 // 组件参数
-param = "@param" multiWhiteSpace+ type:variableType multiWhiteSpace+ variable:variable multiWhiteSpace+ comment:comment?{
+param = "@param" multiWhiteSpace+ type:(type:variableType multiWhiteSpace+ { return type })? variable:variable multiWhiteSpace+ comment:comment?{
  return { type: "param", value: { comment ,type, variable }}
 }
 
